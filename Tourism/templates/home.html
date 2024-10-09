@@ -1,37 +1,66 @@
-<!-- templates/home.html -->
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
+<div class="container">
+  {% if user.is_authenticated %}
+    <h1>Welcome back, {{ user.username }}!</h1>
+    <p><a href="{% url 'logout' %}">Logout</a></p>
 
-  <a href="{% url 'input_cuisine' 'nearby'%}">nearby recommendation</a>
-  </br></br>
-  <a href="{% url 'input_cuisine' 'rating'%}">rating based recommendation</a>
-  </br></br>
-  <a href="{% url 'input_cuisine' 'price'%}">price based recommendation</a>
-  </br></br>
-  <a href="{% url 'input_cuisine' 'personalized'%}">user personalized recommendation</a>
-  </br></br>
-  <a href="{% url 'timing_list' %}">time based recommendation</a>
+    <div class="button-group">
+      <a href="{% url 'input_cuisine' 'nearby' %}" class="button">Nearby Recommendation</a>
+      <a href="{% url 'input_cuisine' 'rating' %}" class="button">Rating Based Recommendation</a>
+      <a href="{% url 'input_cuisine' 'price' %}" class="button">Price Based Recommendation</a>
+      <a href="{% url 'input_cuisine' 'personalized' %}" class="button">User Personalized Recommendation</a>
+      <a href="{% url 'timing_list' %}" class="button">Time Based Recommendation</a>
+    </div>
 
+  {% else %}
+    <h1>Welcome to the Tourism App!</h1>
+    <p>You are not logged in.</p>
+    <p>Please log in or sign up to access recommendations.</p>
+    <div class="button-group">
+      <a href="{% url 'login' %}" class="button">Login</a>
+      <a href="{% url 'signup' %}" class="button">Signup</a>
+    </div>
+  {% endif %}
+</div>
 
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
 
+  h1 {
+    color: #333;
+  }
 
+  p {
+    color: #666;
+  }
 
+  .button-group {
+    margin-top: 20px;
+  }
 
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
 
-
-
-
-{% else %}
-  <H6><p>HOME</p></H6>
-  <p>You are not logged in</p>
-  <p>This is before-Base.html</p>
-  <button type="submit"><a href="{% url 'login' %}">Login</a></button>
-  <button type="submit"><a href="{% url 'signup' %}">Signup</a></button>
-  <!-- <button type="submit"><a href="{% url 'signup' %}"Sign up</button> -->
-{% endif %}
+  .button:hover {
+    background-color: #0056b3;
+  }
+</style>
 {% endblock %}
